@@ -1,95 +1,104 @@
+# zhulogic-ssr
 
-# vue-ssr-template
-```
-vue服务端渲染模板
-```
+> Nuxt.js project
 
-## 技术栈
-vue + vuex + vue-router + ES6/ES7 + webpack + sass + nodejs
-
-## 项目运行
- 1. node v8.1.2
- 2. npm 5.0.3
- 3. vue 2.4.4
- 4. vuex 2.3.1
- 5. vue-router 2.7.0
-```
-克隆，或者直接下载
-git clone https://github.com/smalleast/vue-ssr-template.git
-
-进入文件夹
-cd vue-ssr-template
-
-安装依赖
-npm install
-```
-
-### 编译环境
-
-## 本地运行
-
-```bash
-npm install
-npm run dev
-```
-
-## 打包项目
+## Build Setup
 
 ``` bash
-npm install
-npm run build
-npm start
+# install dependencies
+$ npm install # Or yarn install
+
+# serve with hot reload at localhost:3000
+$ npm run dev
+
+# build for production and launch server
+$ npm run build
+$ npm start
+
+# generate static project
+$ npm run generate
 ```
 
-## 删除已打包项目
+For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
-``` bash
-npm run del
-```
+## Deploy use Forever
 
-## 项目部署
-> 打包脚本 npm run build 后生成dist文件夹，将dist文件夹放在我们的生产服务器，
-安装依赖后通过npm run pm2 来启动项目(node服务)
+A simple CLI tool for ensuring that a given script runs continuously (i.e. forever).
 
-``` bash
-npm install
-npm run pm2
-```
-
-## 说明
-```
->  如有问题或者遇到坑请直接在 Issues 中提，或者可以加我的QQ 382026180
-
->  如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！ ^_^
+### Usage
 
 ```
-
-## 项目布局
-```
-|-- build								                        // webpack的配置目录
-|   |-- webpack.base.config.js							           // webpack编译文件的配置文件
-|   |-- vue-loader.config.js							            // webpack的vue组件解析文件
-|   |-- webpack.client.config.js							          // 开发客户端的编译文件 npm run dev
-|   |-- webpack.server.config.js							          // 开发服务端的编译文件 npm run build
-|-- src									                       // 静态源码目录
-|   |-- components						                    // 组件
-|       |-- services						                  // 所有跟服务器交互的js文件
-|       |-- store						                    // vuex公共数据存储
-|       |-- styles						                    // 全局公共样式
-|       |-- vue						                    // 全局公共组件
-|   |-- assets							                      // 公共静态文件、图片
-|   |-- modules							                      //	所有的页面
-|   |-- vendor								                    // 引用的公共插件
-|-- .babelrc							                        // ES6语法编译配置
-|-- .editorconfig						                      // 代码编写规格
-|-- .gitignore							                      // git忽略的文件
-|-- .npmrc							                          // npm配置管理及设置代理
-|-- package.json						                      // 项目及工具的依赖配置文件
-|-- package-lock.json					                    // 快捷下载依赖的配置文件
-|-- README.md							                        // 说明
+$ forever start -c "npm start" ./
+$ forever stop -c "npm start" ./
 ```
 
+### Options
 
-## 参考资源
+```
+$ forever --help
+  usage: forever [action] [options] SCRIPT [script-options]
 
-[vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0)
+  Monitors the script specified in the current process or as a daemon
+
+  actions:
+    start               Start SCRIPT as a daemon
+    stop                Stop the daemon SCRIPT by Id|Uid|Pid|Index|Script
+    stopall             Stop all running forever scripts
+    restart             Restart the daemon SCRIPT
+    restartall          Restart all running forever scripts
+    list                List all running forever scripts
+    config              Lists all forever user configuration
+    set <key> <val>     Sets the specified forever config <key>
+    clear <key>         Clears the specified forever config <key>
+    logs                Lists log files for all forever processes
+    logs <script|index> Tails the logs for <script|index>
+    columns add <col>   Adds the specified column to the output in `forever list`
+    columns rm <col>    Removed the specified column from the output in `forever list`
+    columns set <cols>  Set all columns for the output in `forever list`
+    cleanlogs           [CAREFUL] Deletes all historical forever log files
+
+  options:
+    -m  MAX          Only run the specified script MAX times
+    -l  LOGFILE      Logs the forever output to LOGFILE
+    -o  OUTFILE      Logs stdout from child script to OUTFILE
+    -e  ERRFILE      Logs stderr from child script to ERRFILE
+    -p  PATH         Base path for all forever related files (pid files, etc.)
+    -c  COMMAND      COMMAND to execute (defaults to node)
+    -a, --append     Append logs
+    -f, --fifo       Stream logs to stdout
+    -n, --number     Number of log lines to print
+    --pidFile        The pid file
+    --uid            DEPRECATED. Process uid, useful as a namespace for processes (must wrap in a string)
+                     e.g. forever start --uid "production" app.js
+                         forever stop production
+    --id             DEPRECATED. Process id, similar to uid, useful as a namespace for processes (must wrap in a string)
+                     e.g. forever start --id "test" app.js
+                         forever stop test
+    --sourceDir      The source directory for which SCRIPT is relative to
+    --workingDir     The working directory in which SCRIPT will execute
+    --minUptime      Minimum uptime (millis) for a script to not be considered "spinning"
+    --spinSleepTime  Time to wait (millis) between launches of a spinning script.
+    --colors         --no-colors will disable output coloring
+    --plain          Disable command line colors
+    -d, --debug      Forces forever to log debug output
+    -v, --verbose    Turns on the verbose messages from Forever
+    -s, --silent     Run the child script silencing stdout and stderr
+    -w, --watch      Watch for file changes
+    --watchDirectory Top-level directory to watch from
+    --watchIgnore    To ignore pattern when watch is enabled (multiple option is allowed)
+    -t, --killTree   Kills the entire child process tree on `stop`
+    --killSignal     Support exit signal customization (default is SIGKILL),
+                     used for restarting script gracefully e.g. --killSignal=SIGTERM
+    -h, --help       You're staring at it
+
+  [Long Running Process]
+    The forever process will continue to run outputting log messages to the console.
+    ex. forever -o out.log -e err.log my-script.js
+
+  [Daemon]
+    The forever process will run as a daemon which will make the target process start
+    in the background. This is extremely useful for remote starting simple node.js scripts
+    without using nohup. It is recommended to run start with -o -l, & -e.
+    ex. forever start -l forever.log -o out.log -e err.log my-daemon.js
+        forever stop my-daemon.js
+```
